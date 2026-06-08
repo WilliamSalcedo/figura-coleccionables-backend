@@ -15,7 +15,7 @@ const Cart = sequelize.define(
     },
     producto_id: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: false, 
     },
     cantidad: {
       type: DataTypes.INTEGER,
