@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Cart = sequelize.define(
-  "Cart",
+const Favorite = sequelize.define(
+  "Favorite",
   {
     id: {
       type: DataTypes.UUID,
@@ -15,18 +15,13 @@ const Cart = sequelize.define(
     },
     producto_id: {
       type: DataTypes.UUID,
-      allowNull: false, 
-    },
-    cantidad: {
-      type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 1,
     },
   },
   {
-    tableName: "carrito",
+    tableName: "favoritos",
     timestamps: true,
   },
 );
 
-module.exports = Cart;
+module.exports = Favorite;

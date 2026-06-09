@@ -1,9 +1,33 @@
 const { Product, Category } = require("../models");
+const { Op } = require("sequelize");
 
 const getProducts = async (req, res) => {
   try {
+    const { categoria_id, precio_min, precio_max, en_oferta, en_stock } =
+      req.query;
+
+    const where = { activo: true };
+
+    if (categoria_id) {
+      where.categoria_id = categoria_id;
+    }
+
+    if (precio_min || precio_max) {
+      where.precio = {};
+      if (precio_min) where.precio[Op.gte] = precio_min;
+      if (precio_max) where.precio[Op.lte] = precio_max;
+    }
+
+    if (en_oferta === "true") {
+      where.precio_descuento = { [Op.not]: null };
+    }
+
+    if (en_stock === "true") {
+      where.stock = { [Op.gt]: 0 };
+    }
+
     const products = await Product.findAll({
-      where: { activo: true },
+      where,
       include: [
         {
           model: Category,
@@ -12,6 +36,7 @@ const getProducts = async (req, res) => {
       ],
       order: [["createdAt", "DESC"]],
     });
+
     res.json(products);
   } catch (error) {
     res
@@ -57,12 +82,10 @@ const getProductsByCategory = async (req, res) => {
     });
     res.json(products);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Error al obtener productos por categoría",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Error al obtener productos por categoría",
+      error: error.message,
+    });
   }
 };
 
