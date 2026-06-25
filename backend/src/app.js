@@ -7,6 +7,7 @@ const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const favoriteRoutes = require("./routes/favoriteRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use("/api/productos", productRoutes);
 app.use("/api/carrito", cartRoutes);
 app.use("/api/pedidos", orderRoutes);
 app.use("/api/favoritos", favoriteRoutes);
+app.use("api/usuarios", userRoutes);
 
 // Ruta no encontrada
 app.use((req, res) => {
