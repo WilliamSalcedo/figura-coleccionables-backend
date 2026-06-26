@@ -28,7 +28,7 @@ app.use("/api/productos", productRoutes);
 app.use("/api/carrito", cartRoutes);
 app.use("/api/pedidos", orderRoutes);
 app.use("/api/favoritos", favoriteRoutes);
-app.use("api/usuarios", userRoutes);
+app.use("/api/usuarios", userRoutes);
 
 // Ruta no encontrada
 app.use((req, res) => {
